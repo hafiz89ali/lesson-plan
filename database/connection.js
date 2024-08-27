@@ -1,7 +1,11 @@
 import pg from "pg";
-const { Pool } = pg;
+import createUsersTable from "../models/user.js";
+import createClassNameTable from "../models/class.js";
+import createSubjectNameTable from "../models/subject.js";
+import createLessonPlanTable from "../models/lesson-plan.js";
+const { Client } = pg;
 
-const pool = new Pool({
+const database = new Client({
   host: "127.0.0.1",
   port: 5432,
   user: "postgres",
@@ -14,18 +18,23 @@ const pool = new Pool({
 });
 
 // test connection function
-async function db() {
+async function testConnectionAndLog() {
   try {
-    const databaseName = await pool.query("SELECT current_database()");
-    const now = await pool.query("SELECT NOW()");
-    const timeNow = now.rows[0].now;
-    const dbName = databaseName.rows[0].current_database;
-    console.log(`Connected to database: ${dbName} at ${timeNow}`);
-  } catch (error) {
-    console.log("Failed to connect to database.");
+    await database.connect();
+    const queryTime = await database.query("SELECT NOW()");
+    const databaseName = await database.query("SELECT current_database()");
+    const currentTime = queryTime.rows[0].now;
+    const currentDatabase = databaseName.rows[0].current_database;
+    console.log(`Connected to database: ${currentDatabase} at ${currentTime}`);
+    await createUsersTable();
+    await createClassNameTable();
+    await createSubjectNameTable();
+    await createLessonPlanTable();
+  } catch (err) {
+    console.log("Failed to connect to database.", err);
   }
 }
 
-db();
+testConnectionAndLog();
 
-export default pool;
+export default database;
