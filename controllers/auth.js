@@ -1,3 +1,8 @@
+import database from "../database/connection.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
 dotenv.config();
 
 async function registerUser(req, res) {
@@ -64,7 +69,7 @@ async function loginUser(req, res) {
 
   //   Get user from database using email.
   try {
-    const resDB = await database.query(selectUserSQL, [email]);
+    const resDb = await database.query(selectUserSQL, [email]);
     if (resDb.rows.length === 0) {
       return res.status(401).json({ error: "Invalid email or password." });
     }
