@@ -4,16 +4,16 @@ import createClassNameTable from "../models/class.js";
 import createSubjectNameTable from "../models/subject.js";
 import createLessonPlanTable from "../models/lesson-plan.js";
 const { Client } = pg;
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const database = new Client({
-  host: "127.0.0.1",
-  port: 5432,
-  user: "postgres",
-  password: "password",
-  database: "eRPH",
-  max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
   // ssl: true, enable this for production
 });
 
