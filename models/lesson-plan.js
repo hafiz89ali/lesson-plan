@@ -2,15 +2,14 @@ import database from "../database/connection.js";
 
 const createNewLessonPlanSQL = `
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS lesson_plan (
     id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     date DATE NOT NULL,
     time TIME NOT NULL,
-    class_name uuid REFERENCES class_name(id),
-    subject_name uuid REFERENCES subject_name(id),
-    username varchar(255) UNIQUE,
-    email varchar(255) UNIQUE,
-    password varchar(255),
+    class_name uuid REFERENCES class(id),
+    subject_name uuid REFERENCES subject(id),
+    title varchar(255),
+    activity text,
     created_by uuid REFERENCES users(id),
     created_at timestamp DEFAULT NOW()
 );

@@ -2,7 +2,7 @@ import database from "../database/connection.js";
 
 const createNewSubjectNameSQL = `
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS subject (
     id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     subject_name varchar(255) UNIQUE,
     created_by uuid REFERENCES users(id),
