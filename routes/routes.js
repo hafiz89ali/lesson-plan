@@ -1,6 +1,7 @@
 import { Router } from "express";
 import healtController from "../controllers/health.js";
 import authController from "../controllers/auth.js";
+import isAuth from "../middlewares/isAuth.js";
 import createLessonPlan from "../controllers/lesson_plan/create.js";
 
 const router = Router();
@@ -14,7 +15,7 @@ router.post("/login", authController.loginUser);
 const lessonPlanRouter = Router();
 
 // nested /lessonplan router
-router.use("/lessonplan");
+router.use("/lessonplan", lessonPlanRouter);
 
 // middleware to all /lessonplan routes
 lessonPlanRouter.use(isAuth);

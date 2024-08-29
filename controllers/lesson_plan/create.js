@@ -1,9 +1,9 @@
 import database from "../../database/connection.js";
 
 const query = `
-INSERT INTO todos (date, time, class_name, subject_name, title, activity, created_by)
-VALUES ($1, $2, $3, $4, $5, $6, 7)
-RETURNING id, date, time, class_name, Subject_name, title, activity, created_by, created_at)
+INSERT INTO lesson_plan (date, time, class_name, subject_name, title, activity, created_by)
+VALUES ($1, $2, $3, $4, $5, $6, $7)
+RETURNING id, date, time, class_name, subject_name, title, activity, created_by, created_at;
 `;
 
 async function createLessonPlan(req, res) {
@@ -17,7 +17,15 @@ async function createLessonPlan(req, res) {
 
     // req.user comes from the middleware isAuth
     const createdBy = req.user.id;
-    const values = [name, createdBy];
+    const values = [
+      date,
+      time,
+      class_name,
+      subject_name,
+      title,
+      activity,
+      createdBy,
+    ];
 
     const dbRes = await database.query(query, values);
     const lesson_plan = dbRes.rows[0];
