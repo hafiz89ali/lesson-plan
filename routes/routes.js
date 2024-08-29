@@ -3,6 +3,7 @@ import healtController from "../controllers/health.js";
 import authController from "../controllers/auth.js";
 import isAuth from "../middlewares/isAuth.js";
 import createLessonPlan from "../controllers/lesson_plan/create.js";
+import readLessonPlan from "../controllers/lesson_plan/read.js";
 
 const router = Router();
 
@@ -22,5 +23,6 @@ lessonPlanRouter.use(isAuth);
 
 // /lessonplan routes
 lessonPlanRouter.post("/", createLessonPlan);
+lessonPlanRouter.get("/:id", readLessonPlan);
 
 export default router;
