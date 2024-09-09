@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
     username varchar(255) UNIQUE,
     email varchar(255) UNIQUE,
     password varchar(255),
+    is_admin boolean DEFAULT false,
     created_at timestamp DEFAULT NOW()
 );
 `;

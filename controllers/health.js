@@ -14,9 +14,9 @@ function postHealth(req, res) {
   res.status(200).json(data);
 }
 
-const healtController = {
+const healthController = {
   getHealth,
   postHealth,
 };
 
-export default healtController;
+export default healthController;
